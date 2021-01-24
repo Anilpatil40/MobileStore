@@ -18,7 +18,7 @@ This is ECommerce based app to testing buying mobile of various brands.
 * PayPal
 
 ## DATABASE
-* Local machine with xampp server
+* Local MySQL server with xampp server
 
 ## USED THIRD PARTY LIBRARY
 * Volley
