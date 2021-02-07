@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String url = App.URL + "login.php?username="+username+"&password="+password;
+        String url = App.PROJECT_URL + "login.php?username="+username+"&password="+password;
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

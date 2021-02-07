@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
-    String url = App.URL+"product_categories.php";
+    String url = App.PROJECT_URL+"product_categories.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
 
-            String url = App.URL + brand+".png";
+            String url = App.PROJECT_LOGOS_URL + brand +".png";
             Picasso.get().load(url).into(holder.brandLogo);
         }
 

@@ -45,7 +45,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         int id = getIntent().getIntExtra("id",0);
 
-        String url = App.URL + "product_by_id.php?id="+id;
+        String url = App.PROJECT_URL + "product_by_id.php?id="+id;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -66,7 +66,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                 toolbar.setTitle(model);
                                 summary.setText(pSummary);
                                 priceValue.setText("Rs. "+price);
-                                String url = App.URL + picturePath;
+                                String url = App.PROJECT_IMAGES_URL + picturePath;
                                 Picasso.get().load(url).into(imageView);
                             }
                         }catch (Exception e){
@@ -114,7 +114,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     public void addToCart(int quantity){
-        String url = App.URL+"add_to_cart.php?username="+MainUser.getCurrentUser()+"&product_id="+pId+"&quantity="+quantity;
+        String url = App.PROJECT_URL+"add_to_cart.php?username="+MainUser.getCurrentUser()+"&product_id="+pId+"&quantity="+quantity;
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

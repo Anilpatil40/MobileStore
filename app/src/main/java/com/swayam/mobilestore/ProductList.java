@@ -56,7 +56,7 @@ public class ProductList extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
-        String url = App.URL + "products_by_category.php?category="+brandName;
+        String url = App.PROJECT_URL + "products_by_category.php?category="+brandName;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -116,7 +116,7 @@ public class ProductList extends AppCompatActivity {
             holder.brandName.setText(product.getCategory());
             holder.modelName.setText(product.getModel());
             holder.priceValue.setText("Rs. "+product.getPrice());
-            String url = App.URL+product.getImagePath();
+            String url = App.PROJECT_IMAGES_URL+product.getImagePath();
             Picasso.get().load(url).into(holder.imageView);
             Log.i(TAG, "onBindViewHolder: "+holder.itemView.getTag());
             holder.fitButton.setOnClickListener(new View.OnClickListener() {

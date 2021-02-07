@@ -83,7 +83,7 @@ public class CartActivity extends AppCompatActivity {
     private void refreshPage(){
         adapter.clear();
 
-        String url = App.URL + "products_on_cart.php?username=" + MainUser.getCurrentUser();
+        String url = App.PROJECT_URL + "products_on_cart.php?username=" + MainUser.getCurrentUser();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -125,7 +125,7 @@ public class CartActivity extends AppCompatActivity {
     private void deleteFromCart(int productId) {
         adapter.clear();
 
-        String url = App.URL + "delete_from_cart.php?username=" + MainUser.getCurrentUser() + "&product_id="+productId;
+        String url = App.PROJECT_URL + "delete_from_cart.php?username=" + MainUser.getCurrentUser() + "&product_id="+productId;
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -191,7 +191,7 @@ public class CartActivity extends AppCompatActivity {
             dialog.setMessage("please wait...");
             dialog.show();
 
-            String url = App.URL + "order.php?username="+username+"&transaction_id="+transaction_id+
+            String url = App.PROJECT_URL + "order.php?username="+username+"&transaction_id="+transaction_id+
                     "&created_date="+created_date+"&price="+price+"&short_desc="+short_desc;
             StringRequest request = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
@@ -269,7 +269,7 @@ public class CartActivity extends AppCompatActivity {
             holder.priceValue.setText("Rs. "+product.getPrice());
             holder.quantityValue.setText(""+product.getQuantity());
 
-            String url = App.URL + product.getImagePath();
+            String url = App.PROJECT_IMAGES_URL + product.getImagePath();
             Picasso.get().load(url).into(holder.imageView);
 
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {

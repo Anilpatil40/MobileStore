@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        String url = App.URL + "register.php?email="+email+"&username="+username+"&password="+password;
+        String url = App.PROJECT_URL + "register.php?email="+email+"&username="+username+"&password="+password;
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
