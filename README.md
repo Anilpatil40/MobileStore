@@ -18,7 +18,7 @@ This is ECommerce based app to testing buying mobile of various brands.
 * PayPal
 
 ## DATABASE
-* Local MySQL server with xampp server
+* Hostinger Web server and MySQL server
 
 ## USED THIRD PARTY LIBRARY
 * Volley
@@ -29,4 +29,5 @@ This is ECommerce based app to testing buying mobile of various brands.
 * CustomDialog
 
 ## DOWNLOADS
+for testing purpose only.
 [MobileStore.apk](https://ff1rsplje6f0zamv3oeygg-on.drv.tw/GitHub/Anilpatil40/MobileStore.apk)
