@@ -29,5 +29,5 @@ This is ECommerce based app to testing buying mobile of various brands.
 * CustomDialog
 
 ## DOWNLOADS
-for testing purpose only.
+for testing purpose only.<br>
 [MobileStore.apk](https://ff1rsplje6f0zamv3oeygg-on.drv.tw/GitHub/Anilpatil40/MobileStore.apk)
