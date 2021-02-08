@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mobile Store</string>
+    <string name="connection_error_string">something went wrong</string>
 </resources>

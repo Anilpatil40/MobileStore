@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public class ProductList extends AppCompatActivity {
     private static final String TAG = "ProductList";
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
+    @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.connection_error_string) TextView connectionErrorString;
     RecyclerViewAdapter adapter = new RecyclerViewAdapter();
     private String brandName;
 
@@ -56,12 +59,30 @@ public class ProductList extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+
+        refresh();
+
+    }
+
+    public void refresh(){
+        refreshLayout.setRefreshing(true);
+
+        adapter.clear();
+        connectionErrorString.setVisibility(View.INVISIBLE);
+
         String url = App.PROJECT_URL + "products_by_category.php?category="+brandName;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        refreshLayout.setRefreshing(false);
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 int id = response.getJSONObject(i).getInt("id");
@@ -79,12 +100,12 @@ public class ProductList extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: "+ error.getMessage());
+                        refreshLayout.setRefreshing(false);
+                        connectionErrorString.setVisibility(View.VISIBLE);
                     }
                 });
 
         Volley.newRequestQueue(this).add(request);
-
     }
 
     @Override
@@ -100,6 +121,11 @@ public class ProductList extends AppCompatActivity {
         public void addProduct(Product product){
             products.add(product);
             notifyItemInserted(products.size()-1);
+        }
+
+        public void clear(){
+            products.clear();
+            notifyDataSetChanged();
         }
 
         @NonNull

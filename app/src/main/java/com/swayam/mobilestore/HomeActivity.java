@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "CustomAnnotation";
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
+    @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.connection_error_string) TextView connectionErrorString;
     RecyclerViewAdapter adapter;
     String url = App.PROJECT_URL+"product_categories.php";
 
@@ -55,10 +58,27 @@ public class HomeActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+
+        refresh();
+    }
+
+    public void refresh(){
+        refreshLayout.setRefreshing(true);
+
+        adapter.clear();
+        connectionErrorString.setVisibility(View.INVISIBLE);
+
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        refreshLayout.setRefreshing(false);
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 adapter.addBrand(response.getJSONObject(i).getString("category"));
@@ -71,7 +91,8 @@ public class HomeActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        refreshLayout.setRefreshing(false);
+                        connectionErrorString.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -118,6 +139,11 @@ public class HomeActivity extends AppCompatActivity {
 
             String url = App.PROJECT_LOGOS_URL + brand +".png";
             Picasso.get().load(url).into(holder.brandLogo);
+        }
+
+        public void clear(){
+            brands.clear();
+            notifyDataSetChanged();
         }
 
         @Override
